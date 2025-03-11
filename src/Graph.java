@@ -1,7 +1,3 @@
-import assets.In;
-import assets.Stack;
-import java.util.NoSuchElementException;
-
 public class Graph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
@@ -102,7 +98,7 @@ public class Graph {
         }
     }
 
-    public static int[] posicaoMatriz(int posicaoElemento, int nColunas){
+    public int[] posicaoMatriz(int posicaoElemento, int nColunas){
         int linha = posicaoElemento / nColunas;
         //a = b*c + r
         //r = a - b*c
@@ -110,12 +106,12 @@ public class Graph {
         return new int[]{linha, coluna};
     }
 
-    public static int posicaoGrafo(int linha, int coluna, int nColunas){
+    public int posicaoGrafo(int linha, int coluna, int nColunas){
         int posicao = linha * nColunas + coluna;
         return posicao;
     }
 
-    public static boolean elementoExiste(int[][] matriz, int linha, int coluna){
+    public boolean elementoExiste(int[][] matriz, int linha, int coluna){
         if(linha < 0 || coluna < 0){
             return false;
         }
@@ -123,6 +119,33 @@ public class Graph {
             return false;
         }
         return true;
+    }
+
+    public int retornaValor(int v){
+        validateVertex(v);
+        int[] vizinhos =  {-1, 1};
+        for(int i = 0; i < vizinhos.length; i++){
+            if(verticeValido(v + vizinhos[i])){
+                for(ElementoMatriz w : adj[i + vizinhos[i]]){
+                    if(w.posicaoElemento == v){
+                        return w.valorElemento;
+                    }
+                }
+            }
+        }
+        return v;
+    }
+
+    public boolean verticeValido(int v){
+        if(v < 0 || v > V){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public Bag<ElementoMatriz> adj(int v){
+        return this.adj[v];
     }
     /*public String toString() {
         StringBuilder s = new StringBuilder();

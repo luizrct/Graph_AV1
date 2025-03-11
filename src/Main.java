@@ -10,7 +10,8 @@ public class Main {
         }
         int[][] matriz = matrizBuilder(matrizString.toString());
         Graph grafo = new Graph(matriz);
-        grafo.imprimeGrafo();
+        DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, matriz[0].length, 256);
+        dfs.consegueChegar();
     }
 
     //Função que pega a matriz no formato de String e transforma em um vetor duplo Int
