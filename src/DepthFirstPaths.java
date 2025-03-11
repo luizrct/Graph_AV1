@@ -26,6 +26,9 @@ public class DepthFirstPaths {
         for (ElementoMatriz w : G.adj(v)){
             if(!marked[w.posicaoElemento]){
                 edgeTo[w.posicaoElemento] = v;
+                if(w.valorElemento == antigoValor){
+                    w.valorElemento = novoValor;
+                }
                 dfs(G, w.posicaoElemento);
             }
         }
