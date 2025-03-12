@@ -29,17 +29,6 @@ public class Graph {
         int[][] ligacoes = {{-1, 1}, {0, 1}, {1, 1}, {1, 0}};
         for(int i = 0; i < V; i++){
             this.adj[i] = new Bag<ElementoMatriz>();
-            /*int[] posicaoMatriz = ElementoMatriz.posicaoMatriz(i, nColunas);
-            ElementoMatriz elemento = new ElementoMatriz(matriz[posicaoMatriz[0]][posicaoMatriz[1]], i);
-            /*for(int j = 0; j < ligacoes.length; j++){
-                int linha = posicaoMatriz[0] + ligacoes[j][0];
-                int coluna = posicaoMatriz[1] + ligacoes[j][1];
-                if(ElementoMatriz.elementoExiste(matriz, linha, coluna)){
-                    addEdge(elemento, new ElementoMatriz(matriz[linha][coluna], ElementoMatriz.posicaoGrafo(linha, coluna, nColunas)));
-                }
-            }
-
-             */
         }
         for(int i = 0; i < V; i++){
             int[] posicaoMatriz = posicaoMatriz(i, nColunas);
@@ -126,7 +115,7 @@ public class Graph {
         int[] vizinhos =  {-1, 1};
         for(int i = 0; i < vizinhos.length; i++){
             if(verticeValido(v + vizinhos[i])){
-                for(ElementoMatriz w : adj[i + vizinhos[i]]){
+                for(ElementoMatriz w : adj[v + vizinhos[i]]){
                     if(w.posicaoElemento == v){
                         return w.valorElemento;
                     }

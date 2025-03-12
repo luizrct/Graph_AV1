@@ -6,7 +6,7 @@ public class DepthFirstPaths {
     private int novoValor;
 
     public DepthFirstPaths(Graph G, int[] posicaoMatriz, int nColunas, int novoValor){
-        this.s = G.posicaoGrafo(posicaoMatriz[0], posicaoMatriz[1], nColunas);
+        s = G.posicaoGrafo(posicaoMatriz[0], posicaoMatriz[1], nColunas);
         antigoValor = G.retornaValor(s);
         this.novoValor = novoValor;
         edgeTo = new int[G.V()];
@@ -24,14 +24,21 @@ public class DepthFirstPaths {
     public void dfs(Graph G, int v){
         marked[v] = true;
         for (ElementoMatriz w : G.adj(v)){
+            if(w.valorElemento == antigoValor){
+                w.valorElemento = novoValor;
+            }
             if(!marked[w.posicaoElemento]){
                 edgeTo[w.posicaoElemento] = v;
-                if(w.valorElemento == antigoValor){
-                    w.valorElemento = novoValor;
-                }
+                //if(w.valorElemento == antigoValor){
+                  //  w.valorElemento = novoValor;
+                //}
                 dfs(G, w.posicaoElemento);
             }
         }
+    }
+
+    public void teste(Graph G){
+
     }
 
     public void consegueChegar(){
