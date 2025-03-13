@@ -87,6 +87,20 @@ public class Graph {
         }
     }
 
+    public int [][] converterParaMatriz(int nLinhas, int nColunas){
+        int [][] matrizConvertida = new int[nLinhas][nColunas];
+
+        for (int i = 0; i < this.V(); i++) {
+            int[] posicaoMatriz = this.posicaoMatriz(i, nColunas);
+            int linha = posicaoMatriz[0];
+            int coluna = posicaoMatriz[1];
+            int valor = this.retornaValor(i);
+            matrizConvertida[linha][coluna] = valor;
+
+        }
+        return matrizConvertida;
+    }
+
     public int[] posicaoMatriz(int posicaoElemento, int nColunas){
         int linha = posicaoElemento / nColunas;
         //a = b*c + r
