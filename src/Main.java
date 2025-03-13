@@ -9,9 +9,10 @@ public class Main {
             matrizString.append(linha).append("\n");
         }
         int[][] matriz = matrizBuilder(matrizString.toString());
+        int nColunas =  matriz[0].length;
         Graph grafo = new Graph(matriz);
-        DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, matriz[0].length, 256);
-        grafo.imprimeGrafo();
+        DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, nColunas, 2);
+        grafo.imprimeMatriz(nColunas);
     }
 
     //Função que pega a matriz no formato de String e transforma em um vetor duplo Int

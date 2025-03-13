@@ -136,6 +136,21 @@ public class Graph {
     public Bag<ElementoMatriz> adj(int v){
         return this.adj[v];
     }
+
+    public void imprimeMatriz(int nColunas){
+        int c = 0;
+        for(int i = 0; i < V; i++){
+            c++;
+            int valorElemento = retornaValor(i);
+            if(c < nColunas){
+                System.out.print(valorElemento+" ");
+            }else{
+                System.out.print(valorElemento);
+                System.out.println();
+                c = 0;
+            }
+        }
+    }
     /*public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " vertices, " + E + " edges " + NEWLINE);

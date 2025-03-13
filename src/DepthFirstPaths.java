@@ -29,10 +29,9 @@ public class DepthFirstPaths {
             }
             if(!marked[w.posicaoElemento]){
                 edgeTo[w.posicaoElemento] = v;
-                //if(w.valorElemento == antigoValor){
-                  //  w.valorElemento = novoValor;
-                //}
-                dfs(G, w.posicaoElemento);
+                if(w.valorElemento == novoValor){
+                    dfs(G, w.posicaoElemento);
+                }
             }
         }
     }
