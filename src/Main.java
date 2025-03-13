@@ -10,9 +10,12 @@ public class Main {
         }
         int[][] matriz = matrizBuilder(matrizString.toString());
         int nColunas =  matriz[0].length;
+        int nLinhas = matriz.length;
         Graph grafo = new Graph(matriz);
-        DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, nColunas, 2);
-        grafo.imprimeMatriz(nColunas);
+        DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, nColunas, 9, nLinhas);
+        //DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{5, 7}, nColunas, 9, nLinhas);
+        int[][] imagemAlterada = grafo.converterParaMatriz(matriz.length, matriz[0].length);
+        imprimirMatrizConvertida(imagemAlterada);
     }
 
     //Função que pega a matriz no formato de String e transforma em um vetor duplo Int
@@ -40,6 +43,15 @@ public class Main {
             int coluna = input.nextInt();
             int elemento = matriz[linha][coluna];
             System.out.println("Elemento: "+elemento);
+        }
+    }
+
+    public static void imprimirMatrizConvertida(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
         }
     }
     //Função percorre uma matriz e verifica se é correspondente com uma String

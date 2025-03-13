@@ -4,13 +4,17 @@ public class DepthFirstPaths {
     private final int s;
     private int antigoValor;
     private int novoValor;
+    private int nColunas;
+    private int nLinhas;
 
-    public DepthFirstPaths(Graph G, int[] posicaoMatriz, int nColunas, int novoValor){
+    public DepthFirstPaths(Graph G, int[] posicaoMatriz, int nColunas, int novoValor, int nLinhas){
         s = G.posicaoGrafo(posicaoMatriz[0], posicaoMatriz[1], nColunas);
         antigoValor = G.retornaValor(s);
         this.novoValor = novoValor;
         edgeTo = new int[G.V()];
         marked = new boolean[G.V()];
+        this.nLinhas = nLinhas;
+        this.nColunas = nColunas;
         validateVertex(s);
         dfs(G, s);
     }
@@ -23,17 +27,21 @@ public class DepthFirstPaths {
 
     public void dfs(Graph G, int v){
         marked[v] = true;
+        G.mudaValorElemento(v, novoValor, nLinhas, nColunas);
         for (ElementoMatriz w : G.adj(v)){
-            if(w.valorElemento == antigoValor){
-                w.valorElemento = novoValor;
-            }
             if(!marked[w.posicaoElemento]){
                 edgeTo[w.posicaoElemento] = v;
-                if(w.valorElemento == novoValor){
+                if(w.valorElemento == antigoValor){
                     dfs(G, w.posicaoElemento);
                 }
             }
         }
+    }
+
+
+
+    public int getS(){
+        return s;
     }
 
     public void teste(Graph G){

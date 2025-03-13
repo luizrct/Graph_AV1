@@ -87,6 +87,18 @@ public class Graph {
         }
     }
 
+    public int [][] converterParaMatriz(int nLinhas, int nColunas){
+        int [][] matrizConvertida = new int[nLinhas][nColunas];
+        for (int i = 0; i < this.V(); i++) {
+            int[] posicaoMatriz = this.posicaoMatriz(i, nColunas);
+            int linha = posicaoMatriz[0];
+            int coluna = posicaoMatriz[1];
+            int valor = this.retornaValor(i);
+            matrizConvertida[linha][coluna] = valor;
+        }
+        return matrizConvertida;
+    }
+
     public int[] posicaoMatriz(int posicaoElemento, int nColunas){
         int linha = posicaoElemento / nColunas;
         //a = b*c + r
@@ -105,6 +117,16 @@ public class Graph {
             return false;
         }
         if(linha >= matriz.length || coluna >= matriz[0].length){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean elementoExiste1(int nLinhas, int nColunas, int linha, int coluna){
+        if(linha < 0 || coluna < 0){
+            return false;
+        }
+        if(linha >= nLinhas || coluna >= nColunas){
             return false;
         }
         return true;
@@ -150,6 +172,26 @@ public class Graph {
                 c = 0;
             }
         }
+    }
+
+    //função que recebe a posição do vertice e muda seu valor na bag dos vertices vizinhos
+    public void mudaValorElemento(int v, int novoValor, int nLinhas, int nColunas){
+        int[][] verticesVizinhos = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+        int[] posicao = posicaoMatriz(v, nColunas);
+
+        for(int i = 0; i < verticesVizinhos.length; i++){
+            int linha =  posicao[0] + verticesVizinhos[i][0];
+            int coluna =  posicao[1] + verticesVizinhos[i][1];
+            if(elementoExiste1(nLinhas, nColunas, linha, coluna)){
+                int grafoPosicao = posicaoGrafo(linha, coluna, nColunas);
+                for(ElementoMatriz w : adj[grafoPosicao]){
+                    if(w.posicaoElemento == v){
+                        w.valorElemento = novoValor;
+                    }
+                }
+            }
+        }
+
     }
     /*public String toString() {
         StringBuilder s = new StringBuilder();
