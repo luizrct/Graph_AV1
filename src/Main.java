@@ -1,14 +1,21 @@
 import assets.In;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.LinkedList;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
-        Scanner input = new Scanner(System.in);
+        /*Scanner input = new Scanner(System.in);
         StringBuilder matrizString = new StringBuilder();
         String linha;
         while (!(linha = input.nextLine()).equalsIgnoreCase(".")) {
             matrizString.append(linha).append("\n");
         }
-        int[][] matriz = matrizBuilder(matrizString.toString());
+
+         */
+        String[] caminhos = {"entradas/entrada.txt", ""};
+        int[][] matriz = entradaParaMatriz(caminhos[0]);
         int nColunas =  matriz[0].length;
         int nLinhas = matriz.length;
         Graph grafo = new Graph(matriz);
@@ -84,6 +91,35 @@ public class Main {
                 System.out.println();
                 c = 0;
             }
+        }
+    }
+
+
+    public static int[][] entradaParaMatriz(String caminhoArquivo){
+        try(BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))){
+            LinkedList<String> linhas = new LinkedList<>();
+            String linha;
+            while(true){
+                linha = br.readLine();
+                if(linha == null){
+                    break;
+                }
+                linhas.add(linha);
+            }
+            int[][] matriz = new int[linhas.size()][];
+            int c = 0;
+            for(String elemento : linhas){
+                String[] colunas = elemento.split(" ");
+                matriz[c] = new int[colunas.length];
+                for(int i = 0; i < colunas.length; i++){
+                    matriz[c][i] = Integer.valueOf(colunas[i]);
+                }
+                c++;
+            }
+            return matriz;
+        }catch (Exception erro){
+            System.out.println(erro);
+            return new int[0][];
         }
     }
 }
