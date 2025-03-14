@@ -14,8 +14,8 @@ public class Main {
         }
 
          */
-        String[] caminhos = {"entradas/entrada.txt", ""};
-        int[][] matriz = entradaParaMatriz(caminhos[0]);
+        String[] caminhos = {"entradas/entrada.txt", "entradas/UNIFOR_grayscale.txt", "entradas/UNIFOR_sample.txt", "entradas/UNIFOR_sample_final.txt"};
+        int[][] matriz = entradaParaMatriz(caminhos[3]);
         int nColunas =  matriz[0].length;
         int nLinhas = matriz.length;
         Graph grafo = new Graph(matriz);
