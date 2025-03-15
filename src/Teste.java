@@ -1,10 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.List;
-import java.util.LinkedList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 public class Teste {
     public static void main(String[] args){
-
+        String caminho_saida = "saida.txt";
+        int[][] matriz = Main.entradaParaMatriz("entradas/entrada.txt");
+        Main.saida(matriz, caminho_saida);
     }
 }
 

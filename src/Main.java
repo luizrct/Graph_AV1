@@ -1,9 +1,12 @@
 import assets.In;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args){
         /*Scanner input = new Scanner(System.in);
@@ -14,7 +17,7 @@ public class Main {
         }
 
          */
-        String[] caminhos = {"entradas/entrada.txt", "entradas/UNIFOR_grayscale.txt", "entradas/UNIFOR_sample.txt", "entradas/UNIFOR_sample_final.txt"};
+        String[] caminhos = {"entradas/entrada.txt", "entradas/UNIFOR_grayscale.txt", "entradas/UNIFOR_sample.txt", "entradas/UNIFOR_sample_final.txt", "saida.txt"};
         int[][] matriz = entradaParaMatriz(caminhos[3]);
         int nColunas =  matriz[0].length;
         int nLinhas = matriz.length;
@@ -22,7 +25,8 @@ public class Main {
         DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, nColunas, 9, nLinhas);
         //DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{5, 7}, nColunas, 9, nLinhas);
         int[][] imagemAlterada = grafo.converterParaMatriz(matriz.length, matriz[0].length);
-        imprimirMatrizConvertida(imagemAlterada);
+        saida(imagemAlterada, caminhos[caminhos.length-1]);
+        //imprimirMatrizConvertida(imagemAlterada);
     }
 
     //Função que pega a matriz no formato de String e transforma em um vetor duplo Int
@@ -120,6 +124,33 @@ public class Main {
         }catch (Exception erro){
             System.out.println(erro);
             return new int[0][];
+        }
+    }
+
+    public static void saida(int[][] matriz, String caminhoArquivo){
+        try{
+            FileWriter escritor = new FileWriter(caminhoArquivo, false);
+            BufferedWriter bf = new BufferedWriter(escritor);
+            for(int i = 0; i < matriz.length; i++){
+                String linha = "";
+                for(int j = 0; j < matriz[0].length; j++){
+                    if(j < (matriz[0].length - 1)){
+                        linha += String.valueOf(matriz[i][j])+" ";
+                    }else{
+                        linha += String.valueOf(matriz[i][j]);
+                    }
+                }
+                if(i == matriz.length - 1){
+                    bf.write(linha);
+                }else{
+                    bf.write(linha);
+                    bf.newLine();
+                }
+            }
+            bf.close();
+        }catch (Exception erro){
+            System.out.println("OCORREU UM ERRO AO ESCREVER A SAIDA");
+            System.out.println(erro);
         }
     }
 }
