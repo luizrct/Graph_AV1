@@ -18,14 +18,15 @@ public class Main {
 
          */
         String[] caminhos = {"entradas/entrada.txt", "entradas/UNIFOR_grayscale.txt", "entradas/UNIFOR_sample.txt", "entradas/UNIFOR_sample_final.txt", "saida.txt"};
-        int[][] matriz = entradaParaMatriz(caminhos[3]);
+        int[][] matriz = entradaParaMatriz(caminhos[2]);
         int nColunas =  matriz[0].length;
         int nLinhas = matriz.length;
         Graph grafo = new Graph(matriz);
         DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, nColunas, 9, nLinhas);
         //DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{5, 7}, nColunas, 9, nLinhas);
         int[][] imagemAlterada = grafo.converterParaMatriz(matriz.length, matriz[0].length);
-        saida(imagemAlterada, caminhos[caminhos.length-1]);
+        grafo.saida(caminhos[caminhos.length - 1], nColunas);
+        //saida(imagemAlterada, caminhos[caminhos.length-1]);
         //imprimirMatrizConvertida(imagemAlterada);
     }
 

@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+
 public class Graph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
@@ -132,6 +135,7 @@ public class Graph {
         return true;
     }
 
+    //COMPLEXIDADE: CONSTANTE
     public int retornaValor(int v){
         validateVertex(v);
         int[] vizinhos =  {-1, 1};
@@ -176,23 +180,47 @@ public class Graph {
 
     //função que recebe a posição do vertice e muda seu valor na bag dos vertices vizinhos
     public void mudaValorElemento(int v, int novoValor, int nLinhas, int nColunas){
-        int[][] verticesVizinhos = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
-        int[] posicao = posicaoMatriz(v, nColunas);
-
-        for(int i = 0; i < verticesVizinhos.length; i++){
-            int linha =  posicao[0] + verticesVizinhos[i][0];
-            int coluna =  posicao[1] + verticesVizinhos[i][1];
-            if(elementoExiste1(nLinhas, nColunas, linha, coluna)){
-                int grafoPosicao = posicaoGrafo(linha, coluna, nColunas);
-                for(ElementoMatriz w : adj[grafoPosicao]){
-                    if(w.posicaoElemento == v){
-                        w.valorElemento = novoValor;
-                    }
+        for(ElementoMatriz w : adj[v]){ //no maximo 8 vezes
+            int posicao = w.posicaoElemento;
+            for(ElementoMatriz e : adj[posicao]){
+                if(e.posicaoElemento == v){
+                    e.valorElemento = novoValor;
                 }
             }
         }
-
     }
+
+    //metodo de saida
+    //COMPLEXIDADE: theta(n)
+    public void saida(String caminhoArquivo, int nColunas){
+        try{
+            FileWriter escritor = new FileWriter(caminhoArquivo, false);
+            BufferedWriter br = new BufferedWriter(escritor);
+            int c = 0;
+            String linha = "";
+            for(int i = 0; i < V; i++){
+                c++;
+                String elemento = String.valueOf(retornaValor(i));
+                if(c < nColunas){
+                    linha += elemento + " ";
+                }else{
+                    linha += elemento;
+                    br.write(linha);
+                    if(i < V - 1){
+                        br.newLine();
+                    }
+                    linha = "";
+                    c = 0;
+                }
+            }
+            br.close();
+        }catch (Exception erro){
+            System.out.println("OCORREU UM ERRO AO ESCREVER A SAIDA");
+            System.out.println(erro);
+        }
+    }
+
+
     /*public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " vertices, " + E + " edges " + NEWLINE);

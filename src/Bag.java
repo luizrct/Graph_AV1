@@ -136,18 +136,7 @@ public class Bag<Item> implements Iterable<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Bag<Integer> bag = new Bag<Integer>();
 
-        Scanner input = new Scanner(System.in);
-
-        for(int i = 0; i < 10; i++){
-            bag.add(i);
-        }
-
-        StdOut.println("size of bag = " + bag.size());
-        for (Integer s : bag) {
-            StdOut.println(s);
-        }
     }
 
 }
