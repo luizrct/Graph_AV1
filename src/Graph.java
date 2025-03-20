@@ -24,6 +24,7 @@ public class Graph {
 
     //QUARTO CONSTRUTOR
     //Esse construtor recebe uma matriz e transforma em grafo
+    //Complexidade: O(N), para N = n X m (n para linhas e m para colunas de uma matriz)
     public Graph(int[][] matriz){
         int nColunas = matriz[0].length;
         this.V = matriz.length * nColunas;
@@ -78,6 +79,7 @@ public class Graph {
         validateVertex(v);
         return this.adj[v].size();
     }
+    //Complexidade O(V+E) (número de vertices V e arestas E)
     public void imprimeGrafo(){
         for(int i = 0; i < this.V; i++){
             System.out.print(i+" -> ");
@@ -90,18 +92,7 @@ public class Graph {
         }
     }
 
-    public int [][] converterParaMatriz(int nLinhas, int nColunas){
-        int [][] matrizConvertida = new int[nLinhas][nColunas];
-        for (int i = 0; i < this.V(); i++) {
-            int[] posicaoMatriz = this.posicaoMatriz(i, nColunas);
-            int linha = posicaoMatriz[0];
-            int coluna = posicaoMatriz[1];
-            int valor = this.retornaValor(i);
-            matrizConvertida[linha][coluna] = valor;
-        }
-        return matrizConvertida;
-    }
-
+    // Complexidade O(1)
     public int[] posicaoMatriz(int posicaoElemento, int nColunas){
         int linha = posicaoElemento / nColunas;
         //a = b*c + r
@@ -109,12 +100,12 @@ public class Graph {
         int coluna = posicaoElemento - (nColunas * (posicaoElemento / nColunas));
         return new int[]{linha, coluna};
     }
-
+    // Complexidade O(1)
     public int posicaoGrafo(int linha, int coluna, int nColunas){
         int posicao = linha * nColunas + coluna;
         return posicao;
     }
-
+    // Complexidade O(1)
     public boolean elementoExiste(int[][] matriz, int linha, int coluna){
         if(linha < 0 || coluna < 0){
             return false;
@@ -125,17 +116,7 @@ public class Graph {
         return true;
     }
 
-    public boolean elementoExiste1(int nLinhas, int nColunas, int linha, int coluna){
-        if(linha < 0 || coluna < 0){
-            return false;
-        }
-        if(linha >= nLinhas || coluna >= nColunas){
-            return false;
-        }
-        return true;
-    }
-
-    //COMPLEXIDADE: CONSTANTE
+    // Complexidade O(Δ), onde Δ é o grau do vértice v no pior caso
     public int retornaValor(int v){
         validateVertex(v);
         int[] vizinhos =  {-1, 1};
@@ -150,7 +131,7 @@ public class Graph {
         }
         return v;
     }
-
+    // Complexidade O(1)
     public boolean verticeValido(int v){
         if(v < 0 || v > V){
             return false;
@@ -158,27 +139,13 @@ public class Graph {
             return true;
         }
     }
-
+    //Complexidade O(1)
     public Bag<ElementoMatriz> adj(int v){
         return this.adj[v];
     }
 
-    public void imprimeMatriz(int nColunas){
-        int c = 0;
-        for(int i = 0; i < V; i++){
-            c++;
-            int valorElemento = retornaValor(i);
-            if(c < nColunas){
-                System.out.print(valorElemento+" ");
-            }else{
-                System.out.print(valorElemento);
-                System.out.println();
-                c = 0;
-            }
-        }
-    }
-
     //função que recebe a posição do vertice e muda seu valor na bag dos vertices vizinhos
+    // Complexidade O(1), pois cada vértice tem no máximo 8 vizinhos
     public void mudaValorElemento(int v, int novoValor, int nLinhas, int nColunas){
         for(ElementoMatriz w : adj[v]){ //no maximo 8 vezes
             int posicao = w.posicaoElemento;
@@ -258,35 +225,6 @@ public class Graph {
         s.append("}" + NEWLINE);
         return s.toString();
     }
-
-    //RETORNA UM VETOR COM UM BOOLEANO IDENTIFICANDO SE AQUELE VETOR CONSEGUE CHEGAR EM DETERMINADO VETOR
-    /*public boolean[] consegueChegar(int v, boolean[] check, Stack<Integer> chamadas, boolean primeira){
-        //o que acontece na primeira chamada
-        boolean[] check1 = check;
-        Stack<Integer> chamadas1 = chamadas;
-        //caso base
-        if(!primeira && chamadas.isEmpty()){
-            return check1;
-        } else if (primeira) {
-            check1[v] = true;
-            for(int i : adj[v]){
-                check1[i] = true;
-                chamadas1.push(i);
-            }
-            consegueChegar(v, check1, chamadas1, false);
-        }else {
-            int elemento = chamadas1.pop();
-            for(int i : adj[elemento]){
-                if(!check1[i]){
-                    check1[i] = true;
-                    chamadas1.push(i);
-                }
-            }
-            consegueChegar(v, check1, chamadas1, false);
-        }
-        return check1;
-    }
-
      */
 
     public static void main(String[] args){

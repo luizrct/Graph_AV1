@@ -8,7 +8,8 @@ public class DepthFirstPaths {
     private int novoValor;
     private int nColunas;
     private int nLinhas;
-    private int contador = 0;
+
+    //Complexidade: O(V + E)
     public DepthFirstPaths(Graph G, int[] posicaoMatriz, int nColunas, int novoValor, int nLinhas){
         s = G.posicaoGrafo(posicaoMatriz[0], posicaoMatriz[1], nColunas);
         antigoValor = G.retornaValor(s);
@@ -18,10 +19,10 @@ public class DepthFirstPaths {
         this.nLinhas = nLinhas;
         this.nColunas = nColunas;
         validateVertex(s);
-        dfs(G, s);
-        //dfsIterativa(G, s);
+        //dfs(G, s);
+        dfsIterativa(G, s);
     }
-
+    //Complexidade O(1)
     private void validateVertex(int v) {
         int V = marked.length;
         if (v < 0 || v >= V)
@@ -30,7 +31,7 @@ public class DepthFirstPaths {
 
 
 
-
+    //Complexidade O(V + E)
     public void dfs(Graph G, int v){
         marked[v] = true;
         G.mudaValorElemento(v, novoValor, nLinhas, nColunas);
@@ -43,7 +44,7 @@ public class DepthFirstPaths {
             }
         }
     }
-
+    //Complexidade O(V + E)
     public void dfsIterativa(Graph G, int s){
         Stack<Integer> pilha = new Stack<Integer>();
         pilha.push(s);
@@ -70,39 +71,8 @@ public class DepthFirstPaths {
             }
         }
     }
-
-    /*
-    public void dfsIterativa(Graph G, int v) {
-        Stack<Integer> pilha = new Stack<>();
-        pilha.push(v);
-        marked[v] = true;
-        while (!pilha.isEmpty()) {
-            int u = pilha.pop();
-            G.mudaValorElemento(u, novoValor, nLinhas, nColunas);
-            for (ElementoMatriz w : G.adj(u)) {
-                if (!marked[w.posicaoElemento]) {
-                    marked[w.posicaoElemento] = true;
-                    edgeTo[w.posicaoElemento] = u;
-                    if (w.valorElemento == antigoValor) {
-                        pilha.push(w.posicaoElemento);
-                    }
-                }
-            }
-        }
-    }
-
-     */
-
-
+    //Complexidade O(1)
     public int getS(){
         return s;
-    }
-
-    public void consegueChegar(){
-        for(int i = 0; i < marked.length; i++){
-            if(marked[i]){
-                System.out.println(i);
-            }
-        }
     }
 }
