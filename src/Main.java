@@ -1,4 +1,3 @@
-import assets.In;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,25 +8,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        /*Scanner input = new Scanner(System.in);
-        StringBuilder matrizString = new StringBuilder();
-        String linha;
-        while (!(linha = input.nextLine()).equalsIgnoreCase(".")) {
-            matrizString.append(linha).append("\n");
-        }
-
-         */
         String[] caminhos = {"entradas/entrada.txt", "entradas/UNIFOR_grayscale.txt", "entradas/UNIFOR_sample.txt", "entradas/UNIFOR_sample_final.txt", "saida.txt"};
-        int[][] matriz = entradaParaMatriz(caminhos[2]);
+        int[][] matriz = entradaParaMatriz(caminhos[1]);
         int nColunas =  matriz[0].length;
         int nLinhas = matriz.length;
         Graph grafo = new Graph(matriz);
         DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{0, 0}, nColunas, 9, nLinhas);
-        //DepthFirstPaths dfs = new DepthFirstPaths(grafo, new int[]{5, 7}, nColunas, 9, nLinhas);
-        int[][] imagemAlterada = grafo.converterParaMatriz(matriz.length, matriz[0].length);
         grafo.saida(caminhos[caminhos.length - 1], nColunas);
-        //saida(imagemAlterada, caminhos[caminhos.length-1]);
-        //imprimirMatrizConvertida(imagemAlterada);
     }
 
     //Função que pega a matriz no formato de String e transforma em um vetor duplo Int
